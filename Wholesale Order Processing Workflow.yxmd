@@ -1,0 +1,1323 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="56" y="54" width="564" height="192" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[ASSIGNMENT
+
+1. Update the Existing Data Warehouse Orders table with the latest POS orders, placed in August 2021.
+
+2. Update the POS and Existing Data Warehouse Orders table with the returns information. That is, set the RETURNED column, to the right value.
+
+ 3. Update the Data Warehouse Customers table with the latest customer information from the POS input. That is, a customer may have changed their details, like address (anything that s not the customer ID) during their latest order. We want the Data Warehouse to be updated with the most recent customer details. Note that the POS system has the US State name in full. Ensure you change that to the State code prior to loading it into the Data Warehouse Customers table. For example, “Florida” should become “FL”. The State Lookup file provides a mapping you may use.
+]]></Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="522" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CUSTOMER_ID" selected="True" type="V_String" size="19" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Fix data types</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="522" y="762" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="QUANTITY" selected="True" type="Double" size="8" />
+            <SelectField field="ORDER_DATE" selected="True" type="DateTime" size="19" />
+            <SelectField field="PRODUCT_PRICE" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Fix data types</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="522" y="966" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Fix data types</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="558" y="630" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ID" selected="True" type="V_String" size="19" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Fix Data Type</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="977" y="352" width="1159" height="465" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Update Existing &amp; New orders with return indicator</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1122" y="666" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ORDER_ID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ORDER_ID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ORDER_ID" selected="False" rename="Right_ORDER_ID" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1362" y="642" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="0&#xA;" field="Returned" size="1" type="Bool" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Set returned to False</AnnotationText>
+              <DefaultAnnotationText><![CDATA[Returned = 0
+
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="29">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1530" y="726" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="30">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1170" y="401" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ORDER_ID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ORDER_ID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ORDER_ID" selected="False" rename="Right_ORDER_ID" input="Right_" />
+                    <SelectField field="Right_RETURNED" selected="True" rename="Right_RETURNED" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="31">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1698" y="522" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="32">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1866" y="618" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="33">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1434" y="522" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="ORDER_ID" selected="True" />
+                <SelectField field="PRODUCT_SKU" selected="True" />
+                <SelectField field="QUANTITY" selected="True" />
+                <SelectField field="ORDER_DATE" selected="True" />
+                <SelectField field="CUSTOMER_ID" selected="True" />
+                <SelectField field="RETURNED" selected="False" />
+                <SelectField field="Right_RETURNED" selected="True" rename="Returned" />
+                <SelectField field="PRODUCT_NAME" selected="True" />
+                <SelectField field="PRODUCT_DESC" selected="True" />
+                <SelectField field="PRODUCT_PRICE" selected="True" />
+                <SelectField field="PRODUCT_CATEGORY" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="4">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2010" y="618" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="25">.\Output - ORDERS.xlsx|||Sheet1</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <PreserveFormat>False</PreserveFormat>
+                <SkipFieldNames>False</SkipFieldNames>
+                <OutputOption>RemoveFile</OutputOption>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Output: Updated Order table</AnnotationText>
+              <DefaultAnnotationText>Output - ORDERS.xlsx
+Query=Sheet1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1002" y="702" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="FirstName" selected="False" />
+                <SelectField field="LastName" selected="False" />
+                <SelectField field="UserName" selected="False" />
+                <SelectField field="Email" selected="False" />
+                <SelectField field="State" selected="False" />
+                <SelectField field="City" selected="False" />
+                <SelectField field="Street" selected="False" />
+                <SelectField field="PostCode" selected="False" />
+                <SelectField field="Phone" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Remove Customer Details</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1025" y="989" width="1291" height="213" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Update customer details</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="34">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1050" y="1086" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="ORDER_ID" selected="False" />
+                <SelectField field="PRODUCT_SKU" selected="False" />
+                <SelectField field="QUANTITY" selected="False" />
+                <SelectField field="ORDER_DATE" selected="False" />
+                <SelectField field="CUSTOMER_ID" selected="True" rename="ID" />
+                <SelectField field="PRODUCT_NAME" selected="False" />
+                <SelectField field="PRODUCT_DESC" selected="False" />
+                <SelectField field="PRODUCT_PRICE" selected="False" />
+                <SelectField field="PRODUCT_CATEGORY" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Remove order details</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.FindReplace.FindReplace">
+            <Position x="1266" y="1098" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FieldFind>State</FieldFind>
+              <FieldSearch><![CDATA[   State*   ]]></FieldSearch>
+              <ReplaceFoundField>State_Abbreviated</ReplaceFoundField>
+              <FindMode>FindWhole</FindMode>
+              <NoCase value="False" />
+              <MatchWholeWord value="False" />
+              <ReplaceMode>Replace</ReplaceMode>
+              <ReplaceMultipleFound value="True" />
+              <ReplaceAppendFields />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFindReplace" />
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1614" y="1110" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ID" selected="False" rename="Right_ID" input="Right_" />
+                    <SelectField field="Right_FirstName" selected="False" rename="Right_FirstName" input="Right_" />
+                    <SelectField field="Right_LastName" selected="False" rename="Right_LastName" input="Right_" />
+                    <SelectField field="Right_UserName" selected="False" rename="Right_UserName" input="Right_" />
+                    <SelectField field="Right_Email" selected="False" rename="Right_Email" input="Right_" />
+                    <SelectField field="Right_State" selected="False" rename="Right_State" input="Right_" />
+                    <SelectField field="Right_City" selected="False" rename="Right_City" input="Right_" />
+                    <SelectField field="Right_Street" selected="False" rename="Right_Street" input="Right_" />
+                    <SelectField field="Right_PostCode" selected="False" rename="Right_PostCode" input="Right_" />
+                    <SelectField field="Right_Phone" selected="False" rename="Right_Phone" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1926" y="1050" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Union (38)</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="1158" y="1086" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="ID" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="7">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2190" y="1038" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="25">.\Output - CUSTOMERS.xlsx|||Sheet1</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <PreserveFormat>False</PreserveFormat>
+                <SkipFieldNames>False</SkipFieldNames>
+                <OutputOption>RemoveFile</OutputOption>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Output: Updated Customer table</AnnotationText>
+              <DefaultAnnotationText>Output - CUSTOMERS.xlsx
+Query=Sheet1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="52" y="280" width="438" height="1048" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>INPUTS</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="12">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="79" y="917" width="386" height="195" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Returns</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="1">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+                <Position x="104" y="966" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Passwords />
+                  <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">.\Completed Returns - August 2021.xlsx|||`Sheet1$`</File>
+                  <FormatSpecificOptions>
+                    <FirstRowData>False</FirstRowData>
+                    <ImportLine>1</ImportLine>
+                  </FormatSpecificOptions>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText>Completed Returns - August 2021.xlsx
+Query=`Sheet1$`</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="ORDER_ID" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Completed Returns - August 2021.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="RETURNED" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Completed Returns - August 2021.xlsx|||`Sheet1$`" type="Bool" />
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+            </Node>
+            <Node ToolID="13">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="260" y="1038" width="180" height="40" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>These are returns received in August 2021 (Order could be placed prior or during August 2021)</Text>
+                  <Font name="Arial" size="8.25" style="0" />
+                  <TextColor name="Black" />
+                  <FillColor name="White" />
+                  <Shape shape="0" />
+                  <Justification Justification="4" />
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="11">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="78" y="713" width="387" height="180" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>POS Orders Data</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="2">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+                <Position x="103" y="762" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Passwords />
+                  <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">.\STORE_TRANSACTIONS_ALL_AUG_2021.csv</File>
+                  <FormatSpecificOptions>
+                    <HeaderRow>True</HeaderRow>
+                    <IgnoreErrors>False</IgnoreErrors>
+                    <AllowShareWrite>False</AllowShareWrite>
+                    <ImportLine>1</ImportLine>
+                    <FieldLen>254</FieldLen>
+                    <SingleThreadRead>False</SingleThreadRead>
+                    <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+                    <Delimeter>,</Delimeter>
+                    <QuoteRecordBreak>False</QuoteRecordBreak>
+                    <CodePage>28591</CodePage>
+                  </FormatSpecificOptions>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText>STORE_TRANSACTIONS_ALL_AUG_2021.csv</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="ORDER_ID" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PRODUCT_SKU" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="QUANTITY" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="ORDER_DATE" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="CUSTOMER_ID" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PRODUCT_NAME" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PRODUCT_DESC" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PRODUCT_PRICE" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PRODUCT_CATEGORY" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="FirstName" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="LastName" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="UserName" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="Email" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="State" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="City" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="Street" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="PostCode" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                    <Field name="Phone" size="254" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\STORE_TRANSACTIONS_ALL_AUG_2021.csv" type="V_String" />
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+            </Node>
+            <Node ToolID="9">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="236" y="822" width="204" height="36" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>This is the Point of Sale (POS) data from August 2021</Text>
+                  <Font name="Arial" size="8.25" style="0" />
+                  <TextColor name="Black" />
+                  <FillColor name="White" />
+                  <Shape shape="0" />
+                  <Justification Justification="4" />
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="79" y="329" width="386" height="170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Data Warehouse - ORDERS</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="3">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+                <Position x="104" y="378" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Passwords />
+                  <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">.\Orders Table.xlsx|||`Sheet1$`</File>
+                  <FormatSpecificOptions>
+                    <FirstRowData>False</FirstRowData>
+                    <ImportLine>1</ImportLine>
+                  </FormatSpecificOptions>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText>Orders Table.xlsx
+Query=`Sheet1$`</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="ORDER_ID" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="PRODUCT_SKU" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="QUANTITY" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="Double" />
+                    <Field name="ORDER_DATE" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="DateTime" />
+                    <Field name="CUSTOMER_ID" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="Double" />
+                    <Field name="RETURNED" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="Bool" />
+                    <Field name="PRODUCT_NAME" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="PRODUCT_DESC" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="PRODUCT_PRICE" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="Double" />
+                    <Field name="PRODUCT_CATEGORY" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\Orders Table.xlsx|||`Sheet1$`" type="V_String" />
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+            </Node>
+            <Node ToolID="8">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="236" y="426" width="204" height="48" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>This is the existing ORDERS table in the data warehouse. It contains all orders placed prior to August 2021.</Text>
+                  <Font name="Arial" size="8.25" style="0" />
+                  <TextColor name="Black" />
+                  <FillColor name="White" />
+                  <Shape shape="0" />
+                  <Justification Justification="4" />
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="77" y="521" width="388" height="170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Data Warehouse - CUSTOMERS</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="5">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+                <Position x="102" y="570" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Passwords />
+                  <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">.\CUSTOMERS.xlsx|||`Sheet1$`</File>
+                  <FormatSpecificOptions>
+                    <FirstRowData>False</FirstRowData>
+                    <ImportLine>1</ImportLine>
+                  </FormatSpecificOptions>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Existing Customer table</AnnotationText>
+                  <DefaultAnnotationText>CUSTOMERS.xlsx
+Query=`Sheet1$`</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="ID" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="Double" />
+                    <Field name="FirstName" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="LastName" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="UserName" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="Email" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="State" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="City" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="Street" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="PostCode" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                    <Field name="Phone" size="255" source="File: E:\Online Courses\Alteryx\Course+Files\12.2 Workflow - Wholesale Order Processing\CUSTOMERS.xlsx|||`Sheet1$`" type="V_String" />
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+            </Node>
+            <Node ToolID="17">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="236" y="618" width="204" height="48" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>This is the existing CUSTOMERS table in the data warehouse. It contains details for each customer.</Text>
+                  <Font name="Arial" size="8.25" style="0" />
+                  <TextColor name="Black" />
+                  <FillColor name="White" />
+                  <Shape shape="0" />
+                  <Justification Justification="4" />
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="79" y="1133" width="386" height="170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>US State Codes Reference List</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="6">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="104" y="1182" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="55" />
+                  <Fields>
+                    <Field name="   State*   " />
+                    <Field name="State_Abbreviated" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>Alabama</c>
+                      <c>AL</c>
+                    </r>
+                    <r>
+                      <c>Alaska</c>
+                      <c>AK</c>
+                    </r>
+                    <r>
+                      <c>Arizona</c>
+                      <c>AZ</c>
+                    </r>
+                    <r>
+                      <c>Arkansas</c>
+                      <c>AR</c>
+                    </r>
+                    <r>
+                      <c>California</c>
+                      <c>CA</c>
+                    </r>
+                    <r>
+                      <c>Colorado</c>
+                      <c>CO</c>
+                    </r>
+                    <r>
+                      <c>Connecticut</c>
+                      <c>CT</c>
+                    </r>
+                    <r>
+                      <c>Delaware</c>
+                      <c>DE</c>
+                    </r>
+                    <r>
+                      <c>Florida</c>
+                      <c>FL</c>
+                    </r>
+                    <r>
+                      <c>Georgia</c>
+                      <c>GA</c>
+                    </r>
+                    <r>
+                      <c>Hawaii</c>
+                      <c>HI</c>
+                    </r>
+                    <r>
+                      <c>Idaho</c>
+                      <c>ID</c>
+                    </r>
+                    <r>
+                      <c>Illinois</c>
+                      <c>IL</c>
+                    </r>
+                    <r>
+                      <c>Indiana</c>
+                      <c>IN</c>
+                    </r>
+                    <r>
+                      <c>Iowa</c>
+                      <c>IA</c>
+                    </r>
+                    <r>
+                      <c>Kansas</c>
+                      <c>KS</c>
+                    </r>
+                    <r>
+                      <c>Kentucky</c>
+                      <c>KY</c>
+                    </r>
+                    <r>
+                      <c>Louisiana</c>
+                      <c>LA</c>
+                    </r>
+                    <r>
+                      <c>Maine</c>
+                      <c>ME</c>
+                    </r>
+                    <r>
+                      <c>Maryland</c>
+                      <c>MD</c>
+                    </r>
+                    <r>
+                      <c>Massachusetts</c>
+                      <c>MA</c>
+                    </r>
+                    <r>
+                      <c>Michigan</c>
+                      <c>MI</c>
+                    </r>
+                    <r>
+                      <c>Minnesota</c>
+                      <c>MN</c>
+                    </r>
+                    <r>
+                      <c>Mississippi</c>
+                      <c>MS</c>
+                    </r>
+                    <r>
+                      <c>Missouri</c>
+                      <c>MO</c>
+                    </r>
+                    <r>
+                      <c>Montana</c>
+                      <c>MT</c>
+                    </r>
+                    <r>
+                      <c>Nebraska</c>
+                      <c>NE</c>
+                    </r>
+                    <r>
+                      <c>Nevada</c>
+                      <c>NV</c>
+                    </r>
+                    <r>
+                      <c>New Hampshire</c>
+                      <c>NH</c>
+                    </r>
+                    <r>
+                      <c>New Jersey</c>
+                      <c>NJ</c>
+                    </r>
+                    <r>
+                      <c>New Mexico</c>
+                      <c>NM</c>
+                    </r>
+                    <r>
+                      <c>New York</c>
+                      <c>NY</c>
+                    </r>
+                    <r>
+                      <c>North Carolina</c>
+                      <c>NC</c>
+                    </r>
+                    <r>
+                      <c>North Dakota</c>
+                      <c>ND</c>
+                    </r>
+                    <r>
+                      <c>Ohio</c>
+                      <c>OH</c>
+                    </r>
+                    <r>
+                      <c>Oklahoma</c>
+                      <c>OK</c>
+                    </r>
+                    <r>
+                      <c>Oregon</c>
+                      <c>OR</c>
+                    </r>
+                    <r>
+                      <c>Pennsylvania</c>
+                      <c>PA</c>
+                    </r>
+                    <r>
+                      <c>Rhode Island</c>
+                      <c>RI</c>
+                    </r>
+                    <r>
+                      <c>South Carolina</c>
+                      <c>SC</c>
+                    </r>
+                    <r>
+                      <c>South Dakota</c>
+                      <c>SD</c>
+                    </r>
+                    <r>
+                      <c>Tennessee</c>
+                      <c>TN</c>
+                    </r>
+                    <r>
+                      <c>Texas</c>
+                      <c>TX</c>
+                    </r>
+                    <r>
+                      <c>Utah</c>
+                      <c>UT</c>
+                    </r>
+                    <r>
+                      <c>Vermont</c>
+                      <c>VT</c>
+                    </r>
+                    <r>
+                      <c>Virginia</c>
+                      <c>VA</c>
+                    </r>
+                    <r>
+                      <c>Washington</c>
+                      <c>WA</c>
+                    </r>
+                    <r>
+                      <c>West Virginia</c>
+                      <c>WV</c>
+                    </r>
+                    <r>
+                      <c>Wisconsin</c>
+                      <c>WI</c>
+                    </r>
+                    <r>
+                      <c>Wyoming</c>
+                      <c>WY</c>
+                    </r>
+                    <r>
+                      <c>American Samoa</c>
+                      <c>AS</c>
+                    </r>
+                    <r>
+                      <c>Guam</c>
+                      <c>GU</c>
+                    </r>
+                    <r>
+                      <c>Northern Mariana Islands</c>
+                      <c>MP</c>
+                    </r>
+                    <r>
+                      <c>Puerto Rico</c>
+                      <c>PR</c>
+                    </r>
+                    <r>
+                      <c>Virgin Islands</c>
+                      <c>VI</c>
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText><![CDATA[US State code reference list
+]]></AnnotationText>
+                  <DefaultAnnotationText>State Code Lookup</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+            <Node ToolID="19">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="248" y="1242" width="192" height="36" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>This static lookup list maps US state names to US State codes</Text>
+                  <Font name="Arial" size="8.25" style="0" />
+                  <TextColor name="Black" />
+                  <FillColor name="White" />
+                  <Shape shape="0" />
+                  <Justification Justification="4" />
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="Orders placed prior to August">
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="30" Connection="Left" />
+    </Connection>
+    <Connection name="Return data(Order placed prior to August)">
+      <Origin ToolID="27" Connection="Right" />
+      <Destination ToolID="30" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="27" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="27" Connection="Left" />
+    </Connection>
+    <Connection name="Existing Customers">
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="36" Connection="Right" />
+    </Connection>
+    <Connection name="Customers who placed an order in Aug">
+      <Origin ToolID="35" Connection="Output" />
+      <Destination ToolID="36" Connection="Left" />
+    </Connection>
+    <Connection name="Orders placed in August(Not returned)">
+      <Origin ToolID="27" Connection="Left" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection name="Orders placed in August &amp; Returned">
+      <Origin ToolID="27" Connection="Join" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection name="Order placed prior to August(Not returned in August)">
+      <Origin ToolID="30" Connection="Left" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection name="Orders placed prior to August &amp; returned">
+      <Origin ToolID="30" Connection="Join" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection name="Updated Cust details">
+      <Origin ToolID="36" Connection="Join" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="36" Connection="Right" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Unique" />
+      <Destination ToolID="35" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="35" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Wholesale Order Processing Workflow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="1a30f5ac-ce4b-4e7a-b49a-84a563a8cb11" />
+      <Telemetry>
+        <PreviousWorkflowId value="963640b5-6e37-48fe-8d31-70d4760cbd5b" />
+        <OriginWorkflowId value="244d69ea-791d-4d93-86d1-11c353b507bf" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
